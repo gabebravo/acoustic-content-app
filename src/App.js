@@ -1,5 +1,10 @@
 import React from 'react';
 import { useFetch } from './hooks/useFetch';
+import ReactHtmlParser, {
+  processNodes,
+  convertNodeToElement,
+  htmlparser2
+} from 'react-html-parser';
 
 function App() {
   const { isLoading, error, article } = useFetch(
@@ -15,11 +20,16 @@ function App() {
         <p>...Loading</p>
       ) : (
         article && (
-          <div>Article</div>
-          // <>
-          //   <h1>{article.title}</h1>
-          //   <p>{article.body}</p>
-          // </>
+          <>
+            <img
+              width="400"
+              src={`${process.env.REACT_APP_DOMAIN_NAME}/api/${process.env.REACT_APP_CONTENT_HUB_ID}${article.mainImage}`}
+            />
+            <h1>{article.heading}</h1>
+            <h3>{article.author}</h3>
+            {article.body &&
+              article.body.map((section, index) => ReactHtmlParser(section))}
+          </>
         )
       )}
     </div>
