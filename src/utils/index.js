@@ -16,3 +16,6 @@ export const transformArticleData = article => {
     body: get(article, 'body.values', '')
   };
 };
+
+export const getErrorImage = () =>
+  'https://miro.medium.com/max/2100/1*ASPrAbd2qtFVSVuru7Y7Rw.png';

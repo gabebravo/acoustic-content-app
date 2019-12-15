@@ -3,6 +3,7 @@ import { useFetch } from './hooks/useFetch';
 import Article from './components/Article';
 import Header from './components/Header';
 import ProgressBar from './components/ProgressBar';
+import Error from './components/Error';
 import get from 'lodash.get';
 import { transformArticleData } from './utils';
 
@@ -13,8 +14,8 @@ export default function App() {
 
   return (
     <div>
-      {error ? (
-        <p>Whoops! Something went wrong</p>
+      {error || (data && data.errors) ? (
+        <Error />
       ) : isLoading ? (
         <ProgressBar />
       ) : (
