@@ -1,39 +1,40 @@
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import { useFetch } from './hooks/useFetch';
-import ReactHtmlParser, {
-  processNodes,
-  convertNodeToElement,
-  htmlparser2
-} from 'react-html-parser';
+import Article from './components/Article';
+import Header from './components/Header';
+import get from 'lodash.get';
+import { transformArticleData } from './utils';
 
-function App() {
-  const { isLoading, error, article } = useFetch(
+const useStyles = makeStyles(theme => ({
+  root: {
+    display: 'flex',
+    justifyContent: 'center'
+  }
+}));
+
+export default function App() {
+  const classes = useStyles();
+  const { isLoading, error, data } = useFetch(
     `${process.env.REACT_APP_DOMAIN_NAME}/api/${process.env.REACT_APP_CONTENT_HUB_ID}/delivery/v1/content/${process.env.REACT_APP_ARTICLE_ID}`
   );
-  console.log('article', article);
 
   return (
-    <div className="App">
+    <div>
       {error ? (
         <p>Whoops! Something went wrong</p>
       ) : isLoading ? (
         <p>...Loading</p>
       ) : (
-        article && (
+        data && (
           <>
-            <img
-              width="400"
-              src={`${process.env.REACT_APP_DOMAIN_NAME}/api/${process.env.REACT_APP_CONTENT_HUB_ID}${article.mainImage}`}
-            />
-            <h1>{article.heading}</h1>
-            <h3>{article.author}</h3>
-            {article.body &&
-              article.body.map((section, index) => ReactHtmlParser(section))}
+            <Header />
+            <div className={classes.root}>
+              <Article {...transformArticleData(get(data, 'elements', {}))} />
+            </div>
           </>
         )
       )}
     </div>
   );
 }
-
-export default App;

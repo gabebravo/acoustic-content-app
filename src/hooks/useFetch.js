@@ -1,22 +1,19 @@
 import React from 'react';
-import get from 'lodash.get';
-import { transformApiData } from '../utils';
 
 export function useFetch(url) {
   // loading, error & data state
   const [isLoading, setIsLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
-  const [article, setArticle] = React.useState(null);
+  const [data, setData] = React.useState(null);
 
   React.useEffect(() => {
     // declaration for async function
-    async function fetchArticle() {
+    async function fetchData() {
       try {
         // attempt fetch
         const response = await window.fetch(url);
         const data = await response.json();
-        const article = get(data, 'elements', {});
-        setArticle(transformApiData(article)); // set data
+        setData(data); // set data
       } catch (error) {
         setError(error); // set error
       } finally {
@@ -27,8 +24,8 @@ export function useFetch(url) {
 
     // set the loading flag & make api call
     setIsLoading(true);
-    fetchArticle();
+    fetchData();
   }, [url]); // only re-render on url change
 
-  return { isLoading, error, article }; // return state as obj
+  return { isLoading, error, data }; // return state as obj
 }
