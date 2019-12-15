@@ -8,7 +8,8 @@ const useStyles = makeStyles(theme => ({
     color: '#fff'
   },
   menuButton: {
-    marginRight: theme.spacing(2)
+    marginRight: theme.spacing(2),
+    color: '#fff'
   }
 }));
 
@@ -20,7 +21,6 @@ export default function Header() {
         <IconButton
           edge="start"
           className={classes.menuButton}
-          className={classes.root}
           aria-label="menu"
         >
           <MenuIcon />
