@@ -50,7 +50,7 @@ export default function Article({ author, body, date, heading, mainImage }) {
               </IconButton>
             }
             title={heading}
-            subheader={`${author} ${date &&
+            subheader={`By ${author}, published ${date &&
               new Date(Date.parse(date)).toLocaleDateString('en-US')}`}
           />
           <CardMedia
