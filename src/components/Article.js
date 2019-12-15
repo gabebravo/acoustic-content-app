@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
     paddingTop: '56.25%' // 16:9
   },
   avatar: {
-    backgroundColor: red[500]
+    backgroundColor: theme.palette.secondary.main
   }
 }));
 
@@ -43,7 +43,7 @@ export default function Article({ author, body, date, heading, mainImage }) {
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
-            GB
+            AC
           </Avatar>
         }
         action={
@@ -52,7 +52,8 @@ export default function Article({ author, body, date, heading, mainImage }) {
           </IconButton>
         }
         title={heading}
-        subheader={date}
+        subheader={`${author} ${date &&
+          new Date(Date.parse(date)).toLocaleDateString('en-US')}`}
       />
       <CardMedia className={classes.media} image={mainImage} title={heading} />
       <CardActions disableSpacing>
@@ -62,22 +63,14 @@ export default function Article({ author, body, date, heading, mainImage }) {
         <IconButton aria-label="share">
           <ShareIcon />
         </IconButton>
-        <CardContent>
-          <Typography
-            variant="body2"
-            color="textSecondary"
-            component="p"
-            align="right"
-          >
-            {`By ${author}`}
-          </Typography>
-        </CardContent>
       </CardActions>
       <div>
         <CardContent>
           {body &&
             body.map((section, index) => (
-              <Typography key={index}>{ReactHtmlParser(section)}</Typography>
+              <Typography component="div" key={index}>
+                {ReactHtmlParser(section)}
+              </Typography>
             ))}
         </CardContent>
       </div>

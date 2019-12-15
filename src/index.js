@@ -9,9 +9,6 @@ const theme = createMuiTheme({
   palette: {
     primary: { main: cyan[500], light: cyan[200] },
     secondary: { main: deepOrange[500], light: deepOrange[200] }
-  },
-  typography: {
-    textPrimary: '#fff'
   }
 });
 
