@@ -37,49 +37,55 @@ export default function Article({ author, body, date, heading, mainImage }) {
   return (
     <Grid container justify="center" spacing={1}>
       <Grid container item xs={12} md={6} spacing={3}>
-        <Card className={classes.card}>
-          <CardHeader
-            avatar={
-              <Avatar aria-label="recipe" className={classes.avatar}>
-                AC
-              </Avatar>
-            }
-            action={
-              <IconButton aria-label="settings">
-                <MoreVertIcon />
+        {author && body && date && heading && mainImage ? (
+          <Card className={classes.card}>
+            <CardHeader
+              avatar={
+                <Avatar aria-label="recipe" className={classes.avatar}>
+                  AC
+                </Avatar>
+              }
+              action={
+                <IconButton aria-label="settings">
+                  <MoreVertIcon />
+                </IconButton>
+              }
+              title={heading}
+              subheader={`By ${author}, published ${date &&
+                new Date(Date.parse(date)).toLocaleDateString('en-US')}`}
+            />
+            <CardMedia
+              className={classes.media}
+              image={mainImage}
+              title={heading}
+            />
+            <CardActions disableSpacing>
+              <IconButton aria-label="add to favorites">
+                <FavoriteIcon />
               </IconButton>
-            }
-            title={heading}
-            subheader={`By ${author}, published ${date &&
-              new Date(Date.parse(date)).toLocaleDateString('en-US')}`}
-          />
-          <CardMedia
-            className={classes.media}
-            image={mainImage}
-            title={heading}
-          />
-          <CardActions disableSpacing>
-            <IconButton aria-label="add to favorites">
-              <FavoriteIcon />
-            </IconButton>
-            <IconButton aria-label="share">
-              <ShareIcon />
-            </IconButton>
-          </CardActions>
-          <div>
-            <CardContent>
-              {body &&
-                body.map((section, index) => (
-                  <Typography
-                    component="div"
-                    key={String(Math.random()).slice(2)}
-                  >
-                    {ReactHtmlParser(section)}
-                  </Typography>
-                ))}
-            </CardContent>
-          </div>
-        </Card>
+              <IconButton aria-label="share">
+                <ShareIcon />
+              </IconButton>
+            </CardActions>
+            <div>
+              <CardContent>
+                {body &&
+                  body.map((section, index) => (
+                    <Typography
+                      component="div"
+                      key={String(Math.random()).slice(2)}
+                    >
+                      {ReactHtmlParser(section)}
+                    </Typography>
+                  ))}
+              </CardContent>
+            </div>
+          </Card>
+        ) : (
+          <Typography className={classes.card} component="div">
+            <h2>That article is no longer available. Please check the url.</h2>
+          </Typography>
+        )}
       </Grid>
     </Grid>
   );
