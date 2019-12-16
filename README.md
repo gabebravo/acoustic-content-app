@@ -1,4 +1,5 @@
-This project is in production at [Acoustic Content](http://workout-auth-app.s3-website.us-east-2.amazonaws.com/auth)
+This project is in production at [Acoustic Content](http://acoustic-content-app.s3-website.us-east-2.amazonaws.com/)
+deployed via an AWS S3 bucket as static files from a bundled React SPA
 
 ## Acoustic Frontend App
 
@@ -10,6 +11,7 @@ This app calls a REST endpoints within the IBM Watson Content Hub to fetch data 
 
 - git clone or download zip from github
 - run npm i or yarn from root directory
+- run npm start or yarn start from root directory
 - the app should load on [http://localhost:3000/](http://localhost:3000/)
 
 #### Technology Used :
